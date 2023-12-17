@@ -8,4 +8,4 @@ class AbstractQuerySet(models.QuerySet):
 
 class AbstractManager(Manager.from_queryset(AbstractQuerySet)):
     def get_queryset(self):
-        return super().get_queryset().filter(is_active=True)
+        return super().get_queryset().filter(is_active=False)

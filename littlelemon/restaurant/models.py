@@ -2,9 +2,17 @@ from django.db import models
 import uuid
 from django.db.models import Manager,Model
 from django.core.validators import MinValueValidator, MaxValueValidator
-from .permissions import AbstractQuerySet, AbstractManager
+from django.core.exceptions import ObjectDoesNotExist
 # Create your models here.
 
+
+class AbstractManager(models.Manager):
+    def get_object_by_public_id(self, id):
+        try:
+            instance = self.get(id=id)
+            return instance
+        except (ObjectDoesNotExist, ValueError, TypeError):
+            raise ValueError(_("ID Cannot be found"))
 
 class TimeStampedUUIDModel(models.Model):
     pkid = models.BigAutoField(primary_key=True, editable=False)
@@ -37,4 +45,10 @@ class Menu(TimeStampedUUIDModel):
     Title=models.CharField(max_length=50)
     Price=models.DecimalField(max_digits=6, decimal_places=2)
     Inventory=models.PositiveSmallIntegerField(default=0, help_text="In Stock")
+
+class MenuItem(models.Model):
+    title=models.CharField(max_length=255, db_index=True)
+    price=models.DecimalField(max_digits=6, decimal_places=2)
+    featured=models.BooleanField(db_index=True, default=None)
+    category=models.ForeignKey(Category, related_name='Title', on_delete=models.PROTECT)
 
