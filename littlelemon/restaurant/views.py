@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Booking, Menu, MenuItem, Category
 from django.contrib.auth.models import User
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from .serializers import BookingSerializer, menuSerializer, UserSerializer, MenuItemSerializer,CategorySerializer
 from rest_framework import viewsets
 #from . import templates
@@ -33,9 +34,10 @@ class CategoriesView(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
-class BookingView(generics.ListCreateAPIView):
+class BookingViewSet(viewsets.ModelViewSet):
     queryset=Booking.objects.all()
     serializer_class=BookingSerializer
+    permission_classes=[IsAuthenticated]
 
     # def get(self, request):
     #     items=Booking.objects.all()
