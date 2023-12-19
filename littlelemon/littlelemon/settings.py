@@ -39,8 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'restaurant',
     'rest_framework',
-    'rest_framework.authtoken',
     'djoser',
+    'rest_framework.authtoken',
+    
 
 ]
 
@@ -160,7 +161,6 @@ REST_FRAMEWORK={
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
     ],
     # 'DEFAULT_FILTER_CLASSES':[
     #     'django_filters.rest_framework.DjangoFilterBackend',
