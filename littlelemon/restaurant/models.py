@@ -46,6 +46,9 @@ class Menu(TimeStampedUUIDModel):
     price=models.DecimalField(max_digits=6, decimal_places=2)
     inventory=models.PositiveSmallIntegerField(default=0, help_text="In Stock")
 
+    def __str__(self):
+        return f'{self.title} : {str(self.price)}'
+
 
 class MenuItem(models.Model):
     title=models.CharField(max_length=255, db_index=True)
