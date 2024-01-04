@@ -18,12 +18,15 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['url', 'username', 'email', 'groups']
 
 class MenuItemSerializer(serializers.ModelSerializer):
+    # Additional fields for serialization
+    image = serializers.ImageField(allow_null=False)
+    menu_item_description = serializers.CharField(max_length=1000, default='')
 
     class Meta:
-        model= MenuItem
-        fields='__all__'
+        model = MenuItem
+        fields = '__all__'
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model= Category
-        fields= '__all__'
+        fields = ['slug', 'title']

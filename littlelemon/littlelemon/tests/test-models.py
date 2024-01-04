@@ -8,11 +8,11 @@ class MenuItemTest(TestCase):
 
 class MenuViewTest(TestCase):
     def setup(self):
-        menuItem=Menu.objects.create{
+        menuItem=MenuItem.objects.create{
             "title": "Beef Bolognese",
             "price": 45.00,
             "featured": false,
             "category": 1, }
-        item=menu.objects.all()
+        item=menuItem.objects.all()
     self.assertEqual(item, "Beef Bolognese : 45.00")
     

@@ -28,20 +28,19 @@ class TimeStampedUUIDModel(models.Model):
 
 
 class Booking(TimeStampedUUIDModel):
-    id =models.IntegerField(db_index=True)
     name=models.CharField(max_length=255)
     No_of_guests=models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(6)])
-    BookingDate=models.DateField()
+    reservation_date=models.DateField()
+    reservation_slot=models.SmallIntegerField(default=10)
 
     def __str__(self):
-        return f"{self.name} - {self.BookingDate}"
+        return f"{self.name} - {self.reservation_date}"
 
 class Category(TimeStampedUUIDModel):
     slug=models.SlugField()
     title=models.CharField(max_length=255, db_index=True)
 
 class Menu(TimeStampedUUIDModel):
-    id=models.IntegerField(db_index=True)
     title=models.CharField(max_length=50)
     price=models.DecimalField(max_digits=6, decimal_places=2)
     inventory=models.PositiveSmallIntegerField(default=0, help_text="In Stock")
@@ -50,12 +49,14 @@ class Menu(TimeStampedUUIDModel):
         return f'{self.title} : {str(self.price)}'
 
 
-class MenuItem(models.Model):
+class MenuItem(TimeStampedUUIDModel):
     title=models.CharField(max_length=255, db_index=True)
     price=models.DecimalField(max_digits=6, decimal_places=2)
     featured=models.BooleanField(db_index=True, default=None)
     category=models.ForeignKey(Category, related_name='Title', on_delete=models.PROTECT)
-
+    image= models.ImageField(upload_to='menu_images/')
+    menu_item_description= models.CharField(max_length=1000, default='')
+    
     def get_item(self):
         return f'{self.title} : {str(self.price)}'
 

@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'djoser',
     'rest_framework.authtoken',
-    
+        
 
 ]
 
@@ -119,6 +119,42 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+#email SetUp
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_HOST_USER='littlereservations@gmail.com'
+EMAIL_HOST_PASSWORD='yfdy hhpt vfwb xoze'
+
+# settings.py
+
+from decouple import config
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com')
+EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
+
+# Your Gmail email address and password
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='littlereservations@gmail.com')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='yfdy hhpt vfwb xoze')
+
+# settings.py
+
+# from decouple import config
+
+# EMAIL_HOST = config('smtp.gmail.com', default='')
+# EMAIL_PORT = config('587', default=587, cast=int)
+# EMAIL_USE_TLS = config('True', default=True, cast=bool)
+# EMAIL_HOST_USER = config('littlereservations@gmail.com', default='')
+# EMAIL_HOST_PASSWORD = config('yfdy hhpt vfwb xoze', default='')
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
@@ -134,6 +170,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 STATIC_URL = 'static/'
 
